@@ -66,7 +66,7 @@ class Database
                     break;
 
                 default:
-                    $type = PDO::PARAM_NULL;
+                    $type = PDO::PARAM_STR;
             }
         }
 
@@ -82,17 +82,19 @@ class Database
     // Get result set as array of objects 
     public function resultSet(){
         $this->execute();
-        return $this->stmt-> fetchAll(PDO::FETCH_OBJ);
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     // Get single record as object
     public function single(){
         $this->execute();
-        return $this->stmt-> fetch(PDO::FETCH_OBJ);
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
     // Get row count 
     public function rowCount(){
         return $this->stmt->rowCount();
     }
+
+
 }

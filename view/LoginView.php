@@ -1,6 +1,6 @@
 <?php
 
-include ("./controller/UserInput.php");
+include ("./controller/LoginController.php");
 
 class LoginView {
 	private static $login = 'LoginView::Login';
@@ -20,13 +20,14 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
-		
+
+	 public function response() {
+
 		$message = '';
 
 		$response = $this->generateLoginFormHTML($message);
 
-		UserInput::CollectUserInfo($this->getRequestUserName(), $this->getRequestUserPassword());
+		LoginController::ValidateUserInfo($this->getRequestUserName(), $this->getRequestUserPassword());
 
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
@@ -59,7 +60,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '"  />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
