@@ -26,7 +26,7 @@ class LoginController
         // Validate Password
         if (empty($passwordFromUser)) {
 
-            $data['password_err'] = 'Please enter password';
+            $data['password_err'] = 'Password is missing';
 
         } elseif (strlen($passwordFromUser) < 6) {
 
@@ -37,7 +37,7 @@ class LoginController
         // Validate Username
         if (empty($username)) {
 
-            $data['name_err'] = 'Please enter name';
+            $data['name_err'] = 'Username is missing';
 
         } elseif (strlen($username) < 3) {
 
