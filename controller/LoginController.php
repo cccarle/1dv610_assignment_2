@@ -1,6 +1,8 @@
 <?php
 
-include './model/Register.php';
+//include './model/Register.php';
+include './model/Login.php';
+require_once './view/LoginView.php';
 
 /**
  * LoginController
@@ -10,9 +12,12 @@ include './model/Register.php';
 class LoginController
 {
 
-    public static function ValidateUserInfo($username, $passwordFromUser)
+    private static $message = '';
+
+    public function ValidateUserInfo($username, $passwordFromUser)
     {
 
+        // Add error message to an array
         $data = [
             'name_err' => '',
             'password_err' => '',
@@ -21,7 +26,7 @@ class LoginController
         // Validate Password
         if (empty($passwordFromUser)) {
 
-            $data['password_err'] = 'Pleae enter password';
+            $data['password_err'] = 'Please enter password';
 
         } elseif (strlen($passwordFromUser) < 6) {
 
@@ -41,15 +46,32 @@ class LoginController
         }
 
         // If there is no errors, call db to register new user
+        // else echo errors
         if ((empty($data['name_err']) && empty($data['password_err']))) {
 
-            $registerNewUser = new Register($username, $passwordFromUser);
+            $registerNewUser = new Login($username, $passwordFromUser);
 
         } else {
-            foreach ($data as $value) {
-                echo $value;
-            }
+
+            $comma_separated = implode(" ", $data);
+
+            self::$message = $comma_separated;
+
         }
 
+    }
+
+    public function ShowErrorMessage()
+    {
+        return self::$message;
+
+
+
+    }
+
+    public static function isLoggedIn($isLoggedIn)
+    {
+
+        echo $isLoggedIn;
     }
 }
