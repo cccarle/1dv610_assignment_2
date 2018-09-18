@@ -1,8 +1,8 @@
 <?php
 
-//include './model/Register.php';
 include './model/Login.php';
 require_once './view/LoginView.php';
+require_once './controller/ErrorMessage.php';
 
 /**
  * LoginController
@@ -12,58 +12,65 @@ require_once './view/LoginView.php';
 class LoginController
 {
 
-    private static $errorMessages = '';
+    private static $message = '';
+
+    public function __construct()
+    {
+        $this->Err = new ErrorMessage();
+    }
 
     public function ValidateUserCredentials($username, $password)
     {
 
-        // Add error message to an array
-        $data = [
-            'name_err' => '',
-            'password_err' => '',
-        ];
+        /*
+        Validate password
+         */
 
-        // Validate Password
         if (empty($password)) {
 
-            $data['password_err'] = 'Please enter password';
+            self::$message = $this->Err->noPasswordProvided();
 
         } elseif (strlen($password) < 6) {
 
-            $data['password_err'] = 'Password must be at least 6 characters';
+            self::$message = $this->Err->passwordToShort();
 
         }
 
-        // Validate Username
+        /*
+        Validate username
+         */
+
         if (empty($username)) {
 
-            $data['name_err'] = 'Please enter name';
+            self::$message = $this->Err->noUsernameProvided();
 
         } elseif (strlen($username) < 3) {
 
-            $data['name_err'] = 'Username must be at least 3 characters';
-
-        }
-
-        // If there is no errors, call db to register new user
-        // else echo errors
-        if ((empty($data['name_err']) && empty($data['password_err']))) {
-
-            new Login($username, $password);
+            self::$message = $this->Err->userNameToShort();
 
         } else {
 
-            $comma_separated = implode(" ", $data);
-
-            self::$errorMessages = $comma_separated;
-
+            $this->AttempToLogIn($username, $password);
         }
+    }
+
+    /*
+    Return Error Message
+     */
+
+    public function ShowErrorMessage(): string
+    {
+        return self::$message;
 
     }
 
-    public function ShowErrorMessage()
+    /*
+    Attemp to login.
+     */
+
+    private function AttempToLogIn($username, $password)
     {
-        return self::$errorMessages;
+        new Login($username, $password);
     }
 
 }
