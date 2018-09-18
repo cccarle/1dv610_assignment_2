@@ -27,9 +27,8 @@ class LoginView
 
     }
 
-    public function response()
+    public function renderLogInForm()
     {
-
         $message = '';
 
         if (!empty($_POST)) {
@@ -39,7 +38,6 @@ class LoginView
 
         $response = $this->generateLoginFormHTML($message);
 
-        //$response .= $this->generateLogoutButtonHTML($message);
         return $response;
     }
 
@@ -58,11 +56,13 @@ class LoginView
 		';
     }
 
+
     /**
      * Generate HTML code on the output buffer for the logout button
      * @param $message, String output message
      * @return  void, BUT writes to standard output!
      */
+    
     private function generateLoginFormHTML($message)
     {
         return '
