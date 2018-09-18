@@ -44,11 +44,11 @@ class Login
             // om hasat lösen passar med inskriva lösen,
             if (password_verify($this->password, $hashed_password)) {
 
-                return $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
+                $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
 
             } else {
 
-                return $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
+                 $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
             }
 
         } else {
