@@ -1,5 +1,8 @@
 <?php
 
+require_once "./controller/RegisterController.php";
+
+
 class RegisterView
 {
 
@@ -14,10 +17,21 @@ class RegisterView
     private static $messageId = 'RegisterView::Message';
 
 
+    public function __construct()
+    {
+        $this->registerController = new RegisterController();
+
+    }
+
     public function renderRegisterInForm()
     {
 
-        $message = '';
+		$message = '';
+		
+		if (!empty($_POST)) {
+            $this->registerController->ValidateUserCredentials($this->getRequestUserName(), $this->getRequestUserPassword(), $this->getRequestUserPassword2());
+            $message = $this->registerController->ShowErrorMessage();
+        }
 
         $response = $this->generateRegisterFormHTML($message);
 
@@ -29,7 +43,7 @@ class RegisterView
         return '
 			<form method="post" >
 				<fieldset>
-					<legend>Register new user - enter Username and password</legend>
+					<legend>Register new user - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
@@ -45,5 +59,28 @@ class RegisterView
 				</fieldset>
 			</form>
 		';
+	}
+	
+
+
+    //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+    private function getRequestUserName()
+    {
+        //RETURN REQUEST VARIABLE: USERNAME
+        $username = $_REQUEST[self::$name];
+        return $username;
+    }
+
+    private function getRequestUserPassword()
+    {
+        $password = $_REQUEST[self::$password];
+        return $password;
+    }
+
+
+    private function getRequestUserPassword2()
+    {
+        $password2 = $_REQUEST[self::$password2];
+        return $password2;
     }
 }

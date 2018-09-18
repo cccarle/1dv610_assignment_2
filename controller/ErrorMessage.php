@@ -30,15 +30,32 @@ class ErrorMessage
 
     }
 
-    public function incorrectCredentials(){
+    public function incorrectCredentials()
+    {
 
         return 'Wrong Password or Username';
 
     }
 
-    public function loginAttempSuccessful(){
+    public function loginAttempSuccessful()
+    {
 
         return 'Log in went successful';
-        
+
+    }
+
+    public function passwordNotMatch()
+    {
+        return 'Password do not match';
+    }
+
+    public function usernameAlreadyTaken()
+    {
+        return 'Username aldready taken';
+    }
+    
+    public function somethingWentWrong()
+    {
+        return 'Something went wrong, please try register again';
     }
 }

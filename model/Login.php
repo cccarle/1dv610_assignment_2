@@ -23,7 +23,6 @@ class Login
         $this->password = $password;
         $this->Err = new ErrorMessage();
         $this->lgController = new LoginController();
-        $this->mainController = new MainController();
         $this->Login();
     }
 
@@ -47,8 +46,6 @@ class Login
             if (password_verify($this->password, $hashed_password)) {
                 $s = true;
                 $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
-                $this->mainController->setToLoggedIn();
-
 
             } else {
 

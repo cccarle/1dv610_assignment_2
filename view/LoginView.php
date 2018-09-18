@@ -68,7 +68,7 @@ class LoginView
         return '
 			<form method="post" >
 				<fieldset>
-					<legend>Login - enter Username and password</legend>
+					<legend>Login - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 
 					<label for="' . self::$name . '">Username :</label>

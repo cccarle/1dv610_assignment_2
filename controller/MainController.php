@@ -8,7 +8,7 @@ require_once 'view/DateTimeView.php';
 
 class MainController
 {
-    private static $so = true;
+    private static $isLoggedIn = false;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class MainController
     public function render()
     {
         $this->layoutView->renderLayoutView(
-            self::$so,
+            self::$isLoggedIn,
             $this->loginView,
             $this->registerView,
             $this->loggedInView,
@@ -32,6 +32,6 @@ class MainController
 
     public function setToLoggedIn()
     {
-        self::$so = true;
+        // add func to make boolean listen to logged in or not
     }
 }
