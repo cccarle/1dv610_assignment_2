@@ -33,10 +33,8 @@ class LoginView
         $message = '';
 
         if (!empty($_POST)) {
-            // LoginController::ValidateUserInfo($this->getRequestUserName(), $this->getRequestUserPassword());
-            $this->loginController->ValidateUserInfo($this->getRequestUserName(), $this->getRequestUserPassword());
+            $this->loginController->ValidateUserCredentials($this->getRequestUserName(), $this->getRequestUserPassword());
             $message = $this->loginController->ShowErrorMessage();
-
         }
 
         $response = $this->generateLoginFormHTML($message);
@@ -70,7 +68,7 @@ class LoginView
         return '
         <form method="post" >
         <fieldset>
-            <legend>Login - enter Username and password</legend>
+            <legend>Login - Enter Username & Password</legend>
             <p id="' . self::$messageId . '">' . $message . '</p>
             <label for="' . self::$name . '">Username :</label>
             <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
@@ -81,7 +79,7 @@ class LoginView
             <input type="submit" name="' . self::$login . '" value="login" />
         </fieldset>
     </form>
-		';
+';
     }
 
     //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

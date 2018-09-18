@@ -1,6 +1,6 @@
 <?php
-require_once('./lib/Database.php');
-require_once('./controller/LoginController.php');
+require_once './lib/Database.php';
+require_once './controller/LoginController.php';
 
 class Login
 {
@@ -33,26 +33,22 @@ class Login
         $this->db->bind(':user_username', $this->username);
 
         $row = $this->db->single();
-        
+
         $hashed_password = $row->user_password;
 
-        if(!$hashed_password){
-        // handle if there is no user here
+        if (!$hashed_password) {
+            // handle if there is no user here
+            echo 'there is no user with this usernme';
         }
 
+        // om hasat lösen passar med inskriva lösen,
         if (password_verify($this->password, $hashed_password)) {
+          
             echo 'logged in';
-            $loggedIn = true;
 
-            LoginController::isLoggedIn($loggedIn);
-            
         } else {
-            $loggedIn = false;
-
 
             echo 'Wrong Password or Username';
-
-            LoginController::isLoggedIn($loggedIn);
 
         }
     }

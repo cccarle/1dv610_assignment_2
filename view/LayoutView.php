@@ -12,7 +12,10 @@ class LayoutView {
         </head>
         <body>
           <h1>Assignment 2</h1>
+          <a href="?register"> Register a new user</a>
+
           ' . $this->renderIsLoggedIn($isLoggedIn) . '
+          
           <div class="container">
               ' . $v->response() . '
               
@@ -31,4 +34,16 @@ class LayoutView {
       return '<h2>Not logged in</h2>';
     }
   }
+
+// check if it´s on register link
+// TODO : find a way to make this dunamic
+
+  // $rg = new RegisterView();
+
+  // public function checkUrl(){
+  //   if( $_SERVER['REQUEST_URI'] === 'http://192.168.64.2/1dv610_assignment_2-master/?register'){
+  //     // rendera layoutView->render(false,$rg,$dtv)
+  //   }
+  // }
+
 }

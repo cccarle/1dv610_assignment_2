@@ -12,9 +12,9 @@ require_once './view/LoginView.php';
 class LoginController
 {
 
-    private static $message = '';
+    private static $errorMessages = '';
 
-    public function ValidateUserInfo($username, $passwordFromUser)
+    public function ValidateUserCredentials($username, $password)
     {
 
         // Add error message to an array
@@ -24,11 +24,11 @@ class LoginController
         ];
 
         // Validate Password
-        if (empty($passwordFromUser)) {
+        if (empty($password)) {
 
-            $data['password_err'] = 'Password is missing';
+            $data['password_err'] = 'Please enter password';
 
-        } elseif (strlen($passwordFromUser) < 6) {
+        } elseif (strlen($password) < 6) {
 
             $data['password_err'] = 'Password must be at least 6 characters';
 
@@ -37,7 +37,7 @@ class LoginController
         // Validate Username
         if (empty($username)) {
 
-            $data['name_err'] = 'Username is missing';
+            $data['name_err'] = 'Please enter name';
 
         } elseif (strlen($username) < 3) {
 
@@ -49,13 +49,13 @@ class LoginController
         // else echo errors
         if ((empty($data['name_err']) && empty($data['password_err']))) {
 
-            $registerNewUser = new Login($username, $passwordFromUser);
+            new Login($username, $password);
 
         } else {
 
             $comma_separated = implode(" ", $data);
 
-            self::$message = $comma_separated;
+            self::$errorMessages = $comma_separated;
 
         }
 
@@ -63,15 +63,7 @@ class LoginController
 
     public function ShowErrorMessage()
     {
-        return self::$message;
-
-
-
+        return self::$errorMessages;
     }
 
-    public static function isLoggedIn($isLoggedIn)
-    {
-
-        echo $isLoggedIn;
-    }
 }
