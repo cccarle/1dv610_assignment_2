@@ -73,4 +73,13 @@ class LoginController
         new Login($username, $password);
     }
 
+    /*
+    Retrive any error message from the DB when an attemp to log in has been made.
+     */
+
+    public function GetErrorMessageFromDB($msgFromDB)
+    {
+        self::$message = $msgFromDB;
+    }
+
 }

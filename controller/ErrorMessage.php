@@ -24,4 +24,21 @@ class ErrorMessage
         return 'Password must be at least 6 characters';
     }
 
+    public function userNameDoesNotExist()
+    {
+        return 'Username does not exist';
+
+    }
+
+    public function incorrectCredentials(){
+
+        return 'Wrong Password or Username';
+
+    }
+
+    public function loginAttempSuccessful(){
+
+        return 'Log in went successful';
+        
+    }
 }

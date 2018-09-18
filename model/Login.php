@@ -1,6 +1,7 @@
 <?php
 require_once './lib/Database.php';
 require_once './controller/LoginController.php';
+require_once './controller/ErrorMessage.php';
 
 class Login
 {
@@ -19,7 +20,8 @@ class Login
         $this->db = new Database;
         $this->username = $username;
         $this->password = $password;
-
+        $this->Err = new ErrorMessage();
+        $this->lgController = new LoginController();
         $this->Login();
     }
 
@@ -34,22 +36,24 @@ class Login
 
         $row = $this->db->single();
 
-        $hashed_password = $row->user_password;
+        // check that the row has an user found with the provide username
+        if ($this->db->rowCount() > 0) {
 
-        if (!$hashed_password) {
-            // handle if there is no user here
-            echo 'there is no user with this usernme';
-        }
+            $hashed_password = $row->user_password;
 
-        // om hasat lösen passar med inskriva lösen,
-        if (password_verify($this->password, $hashed_password)) {
-          
-            echo 'logged in';
+            // om hasat lösen passar med inskriva lösen,
+            if (password_verify($this->password, $hashed_password)) {
+
+                return $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
+
+            } else {
+
+                return $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
+            }
 
         } else {
-
-            echo 'Wrong Password or Username';
-
+            return $this->lgController->GetErrorMessageFromDB($this->Err->userNameDoesNotExist());
         }
+
     }
 }
