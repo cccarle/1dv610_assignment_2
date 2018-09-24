@@ -15,7 +15,7 @@ class Time {
 		$min = $info['minutes'];
 		$sec = $info['seconds'];
 
-        $timeString =  "$weekday, the {$date}th of $month $year, The time is  $hour:$min:$sec";
+        $timeString =  "$weekday, the {$date}rd of $month $year, The time is  $hour:$min:$sec";
         
         return $timeString;
     }

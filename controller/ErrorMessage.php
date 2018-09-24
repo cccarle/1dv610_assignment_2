@@ -16,42 +16,42 @@ class ErrorMessage
 
     public function userNameToShort()
     {
-        return 'Username must be at least 3 characters';
+        return 'Username has too few characters, at least 3 characters.';
     }
 
     public function passwordToShort()
     {
-        return 'Password must be at least 6 characters';
+        return 'Password has too few characters, at least 6 characters.';
     }
 
     public function userNameDoesNotExist()
     {
-        return 'Username does not exist';
+        return 'Wrong name or password';
 
     }
 
     public function incorrectCredentials()
     {
 
-        return 'Wrong Password or Username';
+        return 'Wrong name or password';
 
     }
 
     public function loginAttempSuccessful()
     {
 
-        return 'Log in went successful';
+        return 'Welcome';
 
     }
 
     public function passwordNotMatch()
     {
-        return 'Password do not match';
+        return 'Passwords do not match.';
     }
 
     public function usernameAlreadyTaken()
     {
-        return 'Username aldready taken';
+        return 'User exists, pick another username.';
     }
     
     public function somethingWentWrong()

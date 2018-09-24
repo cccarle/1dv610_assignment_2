@@ -44,15 +44,19 @@ class Login
 
             // om hasat lösen passar med inskriva lösen,
             if (password_verify($this->password, $hashed_password)) {
-                $s = true;
-                $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
 
+                $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
+                
+                 $this->lgController->createUserSession($row);
+            
+            
             } else {
 
                  $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
             }
 
         } else {
+
             return $this->lgController->GetErrorMessageFromDB($this->Err->userNameDoesNotExist());
         }
 

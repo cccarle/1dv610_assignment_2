@@ -3,6 +3,8 @@
 include './model/Login.php';
 require_once './view/LoginView.php';
 require_once './controller/ErrorMessage.php';
+require_once './controller/MainController.php';
+require_once './controller/SessionController.php';
 
 /**
  * LoginController
@@ -17,6 +19,8 @@ class LoginController
     public function __construct()
     {
         $this->Err = new ErrorMessage();
+        $this->session = new SessionController();
+
     }
 
     public function ValidateUserCredentials($username, $password)
@@ -48,7 +52,7 @@ class LoginController
 
             self::$message = $this->Err->userNameToShort();
 
-        } else {
+        } elseif (empty(self::$message)) {
 
             $this->AttempToLogIn($username, $password);
         }
@@ -70,6 +74,7 @@ class LoginController
 
     private function AttempToLogIn($username, $password)
     {
+
         new Login($username, $password);
     }
 
@@ -82,4 +87,10 @@ class LoginController
         self::$message = $msgFromDB;
     }
 
+    public function createUserSession($user)
+    {
+
+        $this->session->setToLoggedIn(true);
+
+    }
 }

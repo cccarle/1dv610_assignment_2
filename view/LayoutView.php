@@ -1,17 +1,24 @@
 <?php
 
+require_once './controller/SessionController.php';
+
 class LayoutView
 {
 
-    public function renderLayoutView(bool $isLoggedIn, LoginView $LoginView, RegisterView $RegisterView, LoggedInView $LoggedInView, DateTimeView $dtv)
+    public function __construct()
     {
-        $view;
+
+        $this->session = new SessionController(); 
+
+      }
+
+    public function renderLayoutView(LoginView $LoginView, RegisterView $RegisterView, DateTimeView $dtv)
+    {
+        $view = $LoginView->renderLogInForm();
 
         if ($_SERVER['REQUEST_URI'] === '/1dv610_assignment_2-master/?register') {
             $view = $RegisterView->renderRegisterInForm();
-        } elseif($isLoggedIn === true){
-            $view = $LoggedInView->generateLoggedInView();
-        } else {
+        } elseif (!$this->session->checkIfLoggedIn()) {
             $view = $LoginView->renderLogInForm();
         }
 
@@ -23,35 +30,37 @@ class LayoutView
           </head>
           <body>
               <h1>Assignment 2</h1>
-              ' . $this->renderIsLoggedIn($isLoggedIn) . '
+
+              ' . $this->renderBackToLogInLink() . '
+
+              ' . $this->renderIsLoggedIn() . '
+
               <div class="container">
                   ' . $view . '
 
-                  '. $dtv->show() .'
+                  ' . $dtv->show() . '
               </div>
           </body>
       </html>
   ';
     }
 
-
-    
-    private function renderIsLoggedIn($isLoggedIn)
+    private function renderIsLoggedIn()
     {
-        if ($isLoggedIn) {
+        if ($this->session->checkIfLoggedIn()) {
             return '<h2>Logged in</h2>';
         } else {
-            if ($_SERVER['REQUEST_URI'] != '/1dv610_assignment_2-master/?register') {
-                return '<a href="?register">Register a new user</a>
-                        <br/>
-                        <h2>Not logged in</h2>';
-            } else {
-                if ($_SERVER['REQUEST_URI'] === '/1dv610_assignment_2-master/?register') {
-                    return '<a href="/1dv610_assignment_2-master/">Back to login</a>
-                            <br/>
-                            <h2>Not logged in</h2>';
-                }
-            }
+            return '<h2>Not logged in</h2>';
         }
     }
+
+    private function renderBackToLogInLink()
+    {
+        if ($_SERVER['REQUEST_URI'] === '/1dv610_assignment_2-master/?register') {
+            return '<a href="/1dv610_assignment_2-master/">Back to login</a>';
+        } else {
+            return '<a href="/1dv610_assignment_2-master/?register">Register new user</a>';
+
+        }
+}
 }

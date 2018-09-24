@@ -10,7 +10,7 @@ class RegisterView
     private static $logout = 'RegisterView::Logout';
     private static $name = 'RegisterView::UserName';
     private static $password = 'RegisterView::Password';
-    private static $password2 = 'RegisterView::Password2';
+    private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $cookieName = 'RegisterView::CookieName';
     private static $cookiePassword = 'RegisterView::CookiePassword';
     private static $keep = 'RegisterView::KeepMeLoggedIn';
@@ -25,7 +25,6 @@ class RegisterView
 
     public function renderRegisterInForm()
     {
-
 		$message = '';
 		
 		if (!empty($_POST)) {
@@ -51,10 +50,10 @@ class RegisterView
 					<br>
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
-					<label for="' . self::$password2 . '">
+					<label for="' . self::$passwordRepeat . '">
 					<br>
 					 Password :</label>
-					<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
+					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 					<input type="submit" name="' . self::$register . '" value="register" />
 				</fieldset>
 			</form>
@@ -80,7 +79,7 @@ class RegisterView
 
     private function getRequestUserPassword2()
     {
-        $password2 = $_REQUEST[self::$password2];
-        return $password2;
+        $passwordRepeat = $_REQUEST[self::$passwordRepeat];
+        return $passwordRepeat;
     }
 }
