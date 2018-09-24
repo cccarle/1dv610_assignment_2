@@ -44,6 +44,13 @@ class ErrorMessage
 
     }
 
+    public function logOut()
+    {
+
+        return 'Bye bye';
+
+    }
+
     public function passwordNotMatch()
     {
         return 'Passwords do not match.';

@@ -53,8 +53,7 @@ class RegisterController
 
         } elseif(empty(self::$message)) {
 
-            $this->AttempToRegisterNewUser($username, $password );
-            
+            $this->AttempToRegisterNewUser($username, $password ); 
         }
     }
 

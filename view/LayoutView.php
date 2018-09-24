@@ -14,7 +14,6 @@ class LayoutView
 
     public function renderLayoutView(LoginView $LoginView, RegisterView $RegisterView, DateTimeView $dtv)
     {
-        $view = null;
 
         if (isset($_GET["register"])) {
             $view = $RegisterView->renderRegisterInForm();

@@ -49,6 +49,15 @@ class LoginView
 
         }
 
+
+        if(!empty($_REQUEST[self::$logout])) {
+            
+            $message='Bye Bye!';
+
+            $response = $this->generateLoginFormHTML($message);
+
+		}
+
         return $response;
     }
 
@@ -104,10 +113,6 @@ class LoginView
         }
     }
 
-    public function isLogoutPressed()
-    {
-        return isset($_REQUEST[self::$logout]);
-    }
 
     private function getRequestUserPassword()
     {

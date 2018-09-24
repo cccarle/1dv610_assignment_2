@@ -87,6 +87,11 @@ class LoginController
         self::$message = $msgFromDB;
     }
 
+    public function logOut()
+    {
+        self::$message = 'dsfdsf';
+    }
+
     public function createUserSession($user)
     {
 
