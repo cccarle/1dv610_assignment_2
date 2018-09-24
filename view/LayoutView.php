@@ -8,15 +8,15 @@ class LayoutView
     public function __construct()
     {
 
-        $this->session = new SessionController(); 
+        $this->session = new SessionController();
 
-      }
+    }
 
     public function renderLayoutView(LoginView $LoginView, RegisterView $RegisterView, DateTimeView $dtv)
     {
-        $view = $LoginView->renderLogInForm();
+        $view = null;
 
-        if ($_SERVER['REQUEST_URI'] === '/1dv610_assignment_2-master/?register') {
+        if (isset($_GET["register"])) {
             $view = $RegisterView->renderRegisterInForm();
         } elseif (!$this->session->checkIfLoggedIn()) {
             $view = $LoginView->renderLogInForm();
@@ -56,11 +56,11 @@ class LayoutView
 
     private function renderBackToLogInLink()
     {
-        if ($_SERVER['REQUEST_URI'] === '/1dv610_assignment_2-master/?register') {
+        if (isset($_GET["register"])) {
             return '<a href="/1dv610_assignment_2-master/">Back to login</a>';
-        } else {
-            return '<a href="/1dv610_assignment_2-master/?register">Register new user</a>';
+        } elseif($this->session->checkIfLoggedIn() === false) {
+            return '<a href="/1dv610_assignment_2-master/?register">Register a new user</a>';
 
         }
-}
+    }
 }

@@ -28,7 +28,7 @@ class RegisterController
 
         if (empty($password)) {
 
-            self::$message = $this->Err->noPasswordProvided();
+            self::$message = $this->Err->passwordToShort();
 
         } elseif (strlen($password) < 6) {
 
@@ -45,7 +45,7 @@ class RegisterController
 
         if (empty($username)) {
 
-            self::$message = $this->Err->noUsernameProvided();
+            self::$message = $this->Err->userNameToShort();
 
         } elseif (strlen($username) < 3) {
 

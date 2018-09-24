@@ -81,7 +81,7 @@ class LoginView
 					<legend>Login - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
@@ -96,7 +96,6 @@ class LoginView
     //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
     public function getRequestUserName()
     {
-        //RETURN REQUEST VARIABLE: USERNAME
         $name = self::$name;
         if (isset($_POST[$name])) {
             return $_REQUEST[$name];
