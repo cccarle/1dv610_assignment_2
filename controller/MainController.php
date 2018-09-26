@@ -9,7 +9,6 @@ require_once 'controller/LoginController.php';
 class MainController
 {
 
-
     public function __construct()
     {
         $this->loginView = new LoginView();

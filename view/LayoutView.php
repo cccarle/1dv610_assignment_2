@@ -1,6 +1,7 @@
 <?php
 
 require_once './controller/SessionController.php';
+require_once './controller/RegisterController.php';
 
 class LayoutView
 {
@@ -14,6 +15,11 @@ class LayoutView
 
     public function renderLayoutView(LoginView $LoginView, RegisterView $RegisterView, DateTimeView $dtv)
     {
+
+        // if(RegisterController::successRegistration()){
+        //     echo'dasdsd';
+        // }
+
 
         if (isset($_GET["register"])) {
             $view = $RegisterView->renderRegisterInForm();

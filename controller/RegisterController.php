@@ -3,7 +3,6 @@
 require_once './controller/ErrorMessage.php';
 require_once './model/Register.php';
 
-
 /**
  * LoginController
  * Controls everything that is authentication-login related
@@ -28,13 +27,13 @@ class RegisterController
 
         if (empty($password)) {
 
-            self::$message = $this->Err->passwordToShort();
+            self::$message .= $this->Err->passwordToShort();
 
         } elseif (strlen($password) < 6) {
 
             self::$message = $this->Err->passwordToShort();
 
-        } elseif($password != $password2) {
+        } elseif ($password != $password2) {
 
             self::$message = $this->Err->passwordNotMatch();
         }
@@ -45,15 +44,22 @@ class RegisterController
 
         if (empty($username)) {
 
-            self::$message = $this->Err->userNameToShort();
+            self::$message .= $this->Err->userNameToShort();
 
         } elseif (strlen($username) < 3) {
 
             self::$message = $this->Err->userNameToShort();
 
-        } elseif(empty(self::$message)) {
+        } elseif (preg_match("/[^A-Za-z0-9]/", $username)) {
+            
 
-            $this->AttempToRegisterNewUser($username, $password ); 
+                $username = preg_replace('/[^\p{L}\p{N}\s]/u', '', $username);
+
+                self::$message = 'Username contains invalid characters.';
+
+        } elseif (empty(self::$message)) {
+
+            $this->AttempToRegisterNewUser($username, $password);
         }
     }
 
@@ -83,6 +89,12 @@ class RegisterController
     public function GetErrorMessageFromDB($msgFromDB)
     {
         self::$message = $msgFromDB;
+    }
+
+    public  function successRegistration()
+    {
+
+        return true;
     }
 
 }

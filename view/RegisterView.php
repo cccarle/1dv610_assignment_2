@@ -35,13 +35,6 @@ class RegisterView
         return $response;
     }
 
-    public function checkIfInvalidCharacter($arg)
-    {
-
-        return preg_match('/^[a-zA-Z0-9]+$/', $arg);
-
-    }
-
     private function generateRegisterFormHTML($message)
     {
         return '

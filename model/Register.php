@@ -55,7 +55,7 @@ class Register
 
             // Execute // om allt gick bra så läggs användare till i db
             if ($this->db->execute()) {
-                return true;    // rendera startsida här
+                $this->regController->successRegistration();
             } else {
                 $this->regController->GetErrorMessageFromDB($this->Err->somethingWentWrong());
             }
