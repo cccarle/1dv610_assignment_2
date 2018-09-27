@@ -18,7 +18,6 @@ class RegisterView
     public function __construct()
     {
         $this->registerController = new RegisterController();
-
     }
 
     public function renderRegisterInForm()
@@ -57,7 +56,8 @@ class RegisterView
     //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
     private function getRequestUserName()
     {
-        $userName = self::$userName;
+        $userName = self::$userName;   
+ 
         if (isset($_POST[$userName])) {
             return $_REQUEST[$userName];
         } else {

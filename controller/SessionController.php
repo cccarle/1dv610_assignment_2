@@ -2,7 +2,7 @@
 
 class SessionController
 {
-    private static $isLoggedIn;
+    private static $isLoggedIn = "sessionController::isLoggedIn";
 
 
     public function setToLoggedIn($isLoggedIn)

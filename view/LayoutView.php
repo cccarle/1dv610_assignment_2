@@ -16,14 +16,11 @@ class LayoutView
     public function renderLayoutView(LoginView $LoginView, RegisterView $RegisterView, DateTimeView $dtv)
     {
 
-        // if(RegisterController::successRegistration()){
-        //     echo'dasdsd';
-        // }
-
+        $view = null;
 
         if (isset($_GET["register"])) {
             $view = $RegisterView->renderRegisterInForm();
-        } elseif (!$this->session->checkIfLoggedIn()) {
+        } else {
             $view = $LoginView->renderLogInForm();
         }
 

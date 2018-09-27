@@ -39,13 +39,13 @@ class LoginView
             $message = '';
         }
 
-        if (!$this->session->checkIfLoggedIn() === true) {
+        if ($this->session->checkIfLoggedIn()) {
 
-            $response = $this->generateLoginFormHTML($message);
+            $response = $this->generateLogoutButtonHTML($message);
 
         } else {
-            
-            $response = $this->generateLogoutButtonHTML($message);
+
+            $response = $this->generateLoginFormHTML($message);
         }
 
 

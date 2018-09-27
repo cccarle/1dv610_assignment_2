@@ -1,8 +1,11 @@
-
 <?php
 //INCLUDE THE FILES NEEDED...
 
 require_once 'controller/MainController.php';
+
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 //MAKE SURE ERRORS ARE SHOWN.sd MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
