@@ -7,7 +7,7 @@ class RegisterView
 
     private static $register = 'RegisterView::Register';
     private static $logout = 'RegisterView::Logout';
-    private static $name = 'RegisterView::UserName';
+    private static $name = 'RegisterView::Username';
     private static $password = 'RegisterView::Password';
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $cookieName = 'RegisterView::CookieName';
@@ -37,7 +37,7 @@ class RegisterView
     private function generateRegisterFormHTML($message)
     {
         return '
-			<form method="post" >
+			<form method="post"  >
 				<fieldset>
 					<legend>Register a new user - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>

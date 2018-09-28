@@ -18,9 +18,6 @@ class LayoutView
 
         if (isset($_GET["register"])) {
             $view = $RegisterView->renderRegisterView();
-            if($this->session->checkIfRegistrationWasSucceded() === true ) {
-                $view = $LoginView->renderLoginView();      
-            }
         } else {
             $view = $LoginView->renderLoginView();
         }

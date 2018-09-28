@@ -76,6 +76,6 @@ class RegisterController
    
         $this->session->setRegUsername($user);
         $this->session->setToSuccesfullRegistration(true);
-
+        header("Location:?"); 
     }
 }
