@@ -59,9 +59,9 @@ class LayoutView
     private function renderBackToLogInLink()
     {
         if (isset($_GET["register"])) {
-            return '<a href="/1dv610_assignment_2-master/">Back to login</a>';
+            return '<a href="?">Back to login</a>';
         } elseif($this->session->checkIfLoggedIn() === false) {
-            return '<a href="/1dv610_assignment_2-master/?register">Register a new user</a>';
+            return '<a href="/?register">Register a new user</a>';
 
         }
     }
