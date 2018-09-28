@@ -2,6 +2,7 @@
 
 require_once './controller/ErrorMessage.php';
 require_once './model/Register.php';
+require_once './controller/SessionController.php';
 
 class RegisterController
 {
@@ -11,6 +12,8 @@ class RegisterController
     public function __construct()
     {
         $this->Err = new ErrorMessage();
+        $this->session = new SessionController();
+
     }
 
     // TODO: move validation of credentails to view
@@ -42,8 +45,7 @@ class RegisterController
 
         } elseif (preg_match("/[^A-Za-z0-9]/", $username)) {
 
-            $username = preg_replace('/[^\p{L}\p{N}\s]/u', '', $username);
-
+           
             self::$message = 'Username contains invalid characters.';
 
         } elseif (empty(self::$message)) {
@@ -67,5 +69,13 @@ class RegisterController
     public function ShowUserReponseMessageFromDB($msgFromDB)
     {
         self::$message = $msgFromDB;
+    }
+
+    public function SuccesRegistration($user)
+    {
+   
+        $this->session->setRegUsername($user);
+        $this->session->setToSuccesfullRegistration(true);
+
     }
 }

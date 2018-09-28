@@ -6,6 +6,7 @@ class LoginView
 {
     private static $login = 'LoginView::Login';
     private static $name = 'LoginView::UserName';
+    private static $SavedUsername = 'LoginView::SavedUsername';
     private static $password = 'LoginView::Password';
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
@@ -19,6 +20,10 @@ class LoginView
         $this->session = new SessionController();
     }
 
+    // TODO 
+    // Move out remove logincontroller connections
+    // make all the if´s cleaner
+
     public function renderLoginView()
     {
         $message = '';
@@ -31,7 +36,13 @@ class LoginView
         }
 
         if ($this->session->checkIfLoggedIn() === true) {
+
             $response = $this->generateLogoutButtonHTML($message);
+        } elseif ($this->session->checkIfRegistrationWasSucceded() === true) {
+            
+            $message = 'Registered new user.';
+            $response = $this->generateLoginFormHTML($message);
+
         } else {
             $response = $this->generateLoginFormHTML($message);
         }
@@ -64,7 +75,7 @@ class LoginView
 					<legend>Login - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->checkWhichInputValueForUsernameToShow() . '" />
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
@@ -79,6 +90,15 @@ class LoginView
     public function isLogOutButtonPressed()
     {
         return isset($_REQUEST[self::$logout]);
+    }
+
+    public function checkWhichInputValueForUsernameToShow()
+    {
+        if ($this->session->checkIfRegistrationWasSucceded()) {
+            return $this->session->getRegUsername();
+        } else {
+            return $this->getRequestUserName();
+        }
     }
 
     public function getRequestUserName()

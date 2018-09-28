@@ -44,7 +44,7 @@ class Register
             $this->db->bind(':user_password', $this->password);
 
             if ($this->db->execute()) {
-                $this->regController->successRegistration();
+                    $this->regController->SuccesRegistration($this->username);
             } else {
                 $this->regController->ShowUserReponseMessageFromDB($this->Err->somethingWentWrong());
             }
