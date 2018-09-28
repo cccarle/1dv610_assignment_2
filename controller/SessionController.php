@@ -16,6 +16,11 @@ class SessionController
     }
 
 
+    public function logOutUser()
+    {
+        unset($_SESSION[self::$isLoggedIn]);
+    }
+
 
     // TODO
     // set session for current user, userId

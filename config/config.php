@@ -12,6 +12,7 @@ define('DB_NAME', 'Auth_1dv610');
 
 
 // ON 000WEBHOST
+
 // <?php
 
 // define('DB_HOST', 'localhost');

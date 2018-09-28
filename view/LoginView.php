@@ -13,59 +13,39 @@ class LoginView
     private static $messageId = 'LoginView::Message';
     private static $logout = 'LoginView::Logout';
 
-    /**
-     * Create HTTP response
-     *
-     * Should be called after a login attempt has been determined
-     *
-     * @return  void BUT writes to standard output and cookies!
-     */
-
     public function __construct()
     {
         $this->loginController = new LoginController();
-
         $this->session = new SessionController();
     }
 
-    public function renderLogInForm()
+    public function renderLoginView()
     {
         $message = '';
 
         if (!empty($_POST)) {
             $this->loginController->ValidateUserCredentials($this->getRequestUserName(), $this->getRequestUserPassword());
-            $message = $this->loginController->ShowErrorMessage();
+            $message = $this->loginController->ShowUserResponseMessages();
         } else {
             $message = '';
         }
 
-        if ($this->session->checkIfLoggedIn()) {
-
+        if ($this->session->checkIfLoggedIn() === true) {
             $response = $this->generateLogoutButtonHTML($message);
-
         } else {
-
             $response = $this->generateLoginFormHTML($message);
         }
 
-
-        if(!empty($_REQUEST[self::$logout])) {
-            
-            $message='Bye Bye!';
-
+        if ($this->isLogOutButtonPressed()) {
+            $this->loginController->logOut();
+            $message = $this->loginController->ShowUserResponseMessages();
             $response = $this->generateLoginFormHTML($message);
         }
-        
-
 
         return $response;
+
     }
 
-    /**
-     * Generate HTML code on the output buffer for the logout button
-     * @param $message, String output message
-     * @return  void, BUT writes to standard output!
-     */
     private function generateLogoutButtonHTML($message)
     {
         return '
@@ -75,12 +55,6 @@ class LoginView
 			</form>
 		';
     }
-
-    /**
-     * Generate HTML code on the output buffer for the logout button
-     * @param $message, String output message
-     * @return  void, BUT writes to standard output!
-     */
 
     private function generateLoginFormHTML($message)
     {
@@ -102,10 +76,15 @@ class LoginView
 		';
     }
 
-    //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+    public function isLogOutButtonPressed()
+    {
+        return isset($_REQUEST[self::$logout]);
+    }
+
     public function getRequestUserName()
     {
         $name = self::$name;
+
         if (isset($_POST[$name])) {
             return $_REQUEST[$name];
         } else {
@@ -113,11 +92,10 @@ class LoginView
         }
     }
 
-
     private function getRequestUserPassword()
     {
-        //RETURN REQUEST VARIABLE: USERNAME
         $password = self::$password;
+
         if (isset($_POST[$password])) {
             return $_POST[$password];
         } else {
@@ -125,4 +103,3 @@ class LoginView
         }
     }
 }
-

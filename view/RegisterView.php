@@ -7,7 +7,7 @@ class RegisterView
 
     private static $register = 'RegisterView::Register';
     private static $logout = 'RegisterView::Logout';
-    private static $userName = 'RegisterView::UserName';
+    private static $name = 'RegisterView::name';
     private static $password = 'RegisterView::Password';
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $cookieName = 'RegisterView::CookieName';
@@ -20,13 +20,13 @@ class RegisterView
         $this->registerController = new RegisterController();
     }
 
-    public function renderRegisterInForm()
+    public function renderRegisterView()
     {
         $message = '';
 
         if (!empty($_POST)) {
             $this->registerController->ValidateUserCredentials($this->getRequestUserName(), $this->getRequestUserPassword(), $this->getRequestUserPassword2());
-            $message = $this->registerController->ShowErrorMessage();
+            $message = $this->registerController->ShowUserResponseMessages();
         }
 
         $response = $this->generateRegisterFormHTML($message);
@@ -41,8 +41,8 @@ class RegisterView
 				<fieldset>
 					<legend>Register a new user - Enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$userName . '">Username :</label>
-					<input type="text" name="' . self::$userName . '"  id="' . self::$userName . '" value="' . $this->getRequestUserName() . '" />
+					<label for="' . self::$name . '">Username :</label>
+					<input type="text" name="' . self::$name . '"  id="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
 					<label for="' . self::$password . '">Password :</label>
                     <input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<label for="' . self::$passwordRepeat . '"> Repeat password :</label>
@@ -53,13 +53,12 @@ class RegisterView
 		';
     }
 
-    //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
     private function getRequestUserName()
     {
-        $userName = self::$userName;   
- 
-        if (isset($_POST[$userName])) {
-            return $_REQUEST[$userName];
+        $name = self::$name;
+
+        if (isset($_POST[$name])) {
+            return $_REQUEST[$name];
         } else {
             return "";
         }
@@ -68,6 +67,7 @@ class RegisterView
     private function getRequestUserPassword()
     {
         $password = self::$password;
+
         if (isset($_POST[$password])) {
             return $_POST[$password];
         } else {
@@ -78,6 +78,7 @@ class RegisterView
     private function getRequestUserPassword2()
     {
         $passwordRepeat = self::$passwordRepeat;
+
         if (isset($_POST[$passwordRepeat])) {
             return $_POST[$passwordRepeat];
         } else {

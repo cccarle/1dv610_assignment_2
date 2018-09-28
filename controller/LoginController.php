@@ -6,11 +6,6 @@ require_once './controller/ErrorMessage.php';
 require_once './controller/MainController.php';
 require_once './controller/SessionController.php';
 
-/**
- * LoginController
- * Controls everything that is authentication-login related
- */
-
 class LoginController
 {
 
@@ -23,12 +18,10 @@ class LoginController
 
     }
 
+     // TODO: move validation of credentails to view
+
     public function ValidateUserCredentials($username, $password)
     {
-
-        /*
-        Validate password
-         */
 
         if (empty($password)) {
 
@@ -39,10 +32,6 @@ class LoginController
             self::$message = $this->Err->passwordToShort();
 
         }
-
-        /*
-        Validate username
-         */
 
         if (empty($username)) {
 
@@ -55,32 +44,22 @@ class LoginController
         } elseif (empty(self::$message)) {
 
             $this->AttempToLogIn($username, $password);
+
         }
     }
 
-    /*
-    Return Error Message
-     */
 
-    public function ShowErrorMessage(): string
+    public function ShowUserResponseMessages()
     {
         return self::$message;
 
     }
 
-    /*
-    Attemp to login.
-     */
-
     private function AttempToLogIn($username, $password)
     {
-
         new Login($username, $password);
     }
 
-    /*
-    Retrive any error message from the DB when an attemp to log in has been made.
-     */
 
     public function GetErrorMessageFromDB($msgFromDB)
     {
@@ -89,13 +68,12 @@ class LoginController
 
     public function logOut()
     {
-        self::$message = 'dsfdsf';
+        self::$message = $this->Err->logOut();
+        $this->session->logOutUser();
     }
 
-    public function createUserSession($user)
+    public function setUserSession()
     {
-
         $this->session->setToLoggedIn(true);
-
     }
 }

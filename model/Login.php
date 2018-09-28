@@ -1,5 +1,5 @@
 <?php
-require_once './lib/Database.php';
+require_once './model/Database.php';
 require_once './controller/LoginController.php';
 require_once './controller/MainController.php';
 require_once './controller/ErrorMessage.php';
@@ -10,12 +10,6 @@ class Login
     private $username;
     private $password;
 
-    /*
-    Constructor
-     * take in username & password
-     * Initialize db conncetion
-     */
-
     public function __construct($username, $password)
     {
         $this->db = new Database;
@@ -25,10 +19,6 @@ class Login
         $this->lgController = new LoginController();
         $this->Login();
     }
-
-    /*
-    Login user
-     */
 
     public function Login()
     {
@@ -46,13 +36,12 @@ class Login
             if (password_verify($this->password, $hashed_password)) {
 
                 $this->lgController->GetErrorMessageFromDB($this->Err->loginAttempSuccessful());
-                
-                 $this->lgController->createUserSession($row);
-            
-            
+
+                $this->lgController->setUserSession();
+
             } else {
 
-                 $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
+                $this->lgController->GetErrorMessageFromDB($this->Err->incorrectCredentials());
             }
 
         } else {

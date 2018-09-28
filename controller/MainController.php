@@ -5,10 +5,8 @@ require_once 'view/RegisterView.php';
 require_once 'view/DateTimeView.php';
 require_once 'controller/LoginController.php';
 
-
 class MainController
 {
-
     public function __construct()
     {
         $this->loginView = new LoginView();
@@ -18,8 +16,6 @@ class MainController
         $this->lg = new LogInController();
     }
 
-
-
     public function render()
     {
         $this->layoutView->renderLayoutView(
@@ -28,7 +24,4 @@ class MainController
             $this->dtv
         );
     }
-
-
- 
 }

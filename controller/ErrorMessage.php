@@ -2,8 +2,6 @@
 
 class ErrorMessage
 {
-    // Display error messages
-
     public function noUsernameProvided()
     {
         return 'Username is missing';
@@ -27,28 +25,21 @@ class ErrorMessage
     public function userNameDoesNotExist()
     {
         return 'Wrong name or password';
-
     }
 
     public function incorrectCredentials()
     {
-
         return 'Wrong name or password';
-
     }
 
     public function loginAttempSuccessful()
     {
-
         return 'Welcome';
-
     }
 
     public function logOut()
     {
-
-        return 'Bye bye';
-
+        return 'Bye bye!';
     }
 
     public function passwordNotMatch()
